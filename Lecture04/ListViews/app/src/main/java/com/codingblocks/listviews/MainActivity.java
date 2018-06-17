@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.id.text1,
                 courses
         );
+
         lvCourses.setAdapter(courseAdapter);
         lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
