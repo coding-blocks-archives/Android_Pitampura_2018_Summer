@@ -2,8 +2,11 @@ package com.codingblocks.listviews;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
             "Flutter", "iOS"
     };
     ListView lvCourses;
+    TextView tvCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lvCourses = findViewById(R.id.lvCourses);
+        tvCourse = findViewById(R.id.tvCourse);
         ArrayAdapter<String> courseAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -30,5 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 courses
         );
         lvCourses.setAdapter(courseAdapter);
+        lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tvCourse.setText(courses[position]);
+            }
+        });
     }
 }
