@@ -13,16 +13,17 @@ class CourseAdapter (
 
     override fun getItemCount(): Int = courses.size
 
-    override fun onCreateViewHolder(
-            parent: ViewGroup, viewType: Int
-    ) = CourseViewHolder(
-            (parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-                    .inflate(R.layout.list_item_course, parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            CourseViewHolder(
+                    (parent.context.getSystemService(
+                            Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                            .inflate(R.layout.list_item_course, parent, false)
+            )
 
 
 
-    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) = holder.bindData(courses[position])
+    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) =
+            holder.bindData(courses[position])
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val teacherName = itemView.tvTeacherName
