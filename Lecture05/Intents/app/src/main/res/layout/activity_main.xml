@@ -6,20 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etSomething"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_gravity="center|top"
-        android:gravity="center"
-        android:hint="Say Something"
-        android:width="200dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/etSomething"
+            android:gravity="center"
+            android:hint="Say Something"
+            android:width="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/etPhNo"
+            android:gravity="center"
+            android:hint="Phone Number"
+            android:width="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_gravity="center"
-        android:id="@+id/btnOpen"
-        android:textSize="30sp"
-        android:text="OPEN"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnOpen"
+            android:textSize="30sp"
+            android:text="OPEN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnDial"
+            android:textSize="30sp"
+            android:text="DIAL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </FrameLayout>

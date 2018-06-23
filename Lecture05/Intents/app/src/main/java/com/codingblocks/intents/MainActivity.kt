@@ -1,6 +1,7 @@
 package com.codingblocks.intents
 
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,5 +21,11 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("DATA", something)
             startActivity(intent)
         })
+        btnDial.setOnClickListener {
+            val phno = etPhNo.text.toString()
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:"+phno)
+            startActivity(intent)
+        }
     }
 }
