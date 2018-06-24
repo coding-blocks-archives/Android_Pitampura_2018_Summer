@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.widget.EditText
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.*
 
 class MainActivity : AppCompatActivity() {
     val TAG = "FILES"
@@ -13,19 +17,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, """
-            getDataDirectory = ${Environment.getDataDirectory()}
-            getExternalStorageDirectory = ${Environment.getExternalStorageDirectory()}
-            getExternalFilesDir = ${getExternalFilesDir(null)}
-        """.trimIndent())
+        btnWrite.setOnClickListener {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Log.d(TAG, """
-                dataDir = ${dataDir}
-                filesDir = ${filesDir}
-                getExternalFilesDirs ${getExternalFilesDirs(null).toList()}
-            """.trimIndent())
+            val file = File(filesDir, "myfile.txt")
+            val fos = FileOutputStream(file)
+            fos.write(etInput.text.toString().toByteArray())
+            fos.close() // good practice to do this manually
         }
+
+        btnRead.setOnClickListener {
+            try {
+                val file = File(filesDir, "myfile.txt")
+                val fis = FileInputStream(file)
+//            file.readBytes()
+                val br = BufferedReader(InputStreamReader(fis))
+                var buf: String? = ""
+                val sb = StringBuilder()
+                while (buf != null) {
+                    sb.append(buf)
+                    buf=br.readLine()
+                }
+                fis.close() // good practice to do this manually
+                etInput.setText(sb.toString())
+            } catch (e: IOException) {
+                Toast
+                    .makeText(this, "Could not read file", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
 
     }
 }
