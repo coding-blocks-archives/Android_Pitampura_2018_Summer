@@ -2,9 +2,11 @@ package com.codingblocks.databases.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import com.codingblocks.databases.R
 
@@ -25,8 +27,11 @@ class TaskRecyclerAdapter (
     override fun getItemCount(): Int = tasks.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.itemView.checkBox.setOnCheckedChangeListener(null)
+
         holder.itemView.checkBox.isChecked = tasks[position].done
         holder.itemView.tvTaskName.text = tasks[position].taskName
+
         holder.itemView.checkBox.setOnCheckedChangeListener {
             _, isChecked -> tasks[position].done = isChecked
         }
