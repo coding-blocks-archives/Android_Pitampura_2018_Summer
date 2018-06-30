@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     val tasks = ArrayList<Task>()
+    lateinit var taskAdapter: TaskRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +21,21 @@ class MainActivity : AppCompatActivity() {
         val db = TodoDbHelper(this).writableDatabase
 
         rvTasks.layoutManager = LinearLayoutManager(this)
-
-        val taskAdapter = TaskRecyclerAdapter(tasks)
-        rvTasks.adapter = taskAdapter
-
         fun refreshTodos () {
             tasks.clear()
             tasks.addAll(TaskTable.getAllTasks(db))
+            taskAdapter.notifyDataSetChanged()
         }
+
+        val onTaskUpdate = {
+            task: Task ->
+            TaskTable.updateTask(db, task)
+            refreshTodos()
+        }
+
+        taskAdapter = TaskRecyclerAdapter(tasks, onTaskUpdate)
+        rvTasks.adapter = taskAdapter
+
         refreshTodos()
 
 

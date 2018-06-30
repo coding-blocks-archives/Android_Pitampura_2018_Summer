@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.codingblocks.databases.R
+import com.codingblocks.databases.db.tables.TaskTable
 
 import com.codingblocks.databases.models.Task
 import kotlinx.android.synthetic.main.list_item_task.view.*
 
 class TaskRecyclerAdapter (
-        val tasks: ArrayList<Task>
+        val tasks: ArrayList<Task>,
+        val onTaskUpdate: (task: Task) -> Unit
 ): RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
 
 
@@ -33,7 +35,9 @@ class TaskRecyclerAdapter (
         holder.itemView.tvTaskName.text = tasks[position].taskName
 
         holder.itemView.checkBox.setOnCheckedChangeListener {
-            _, isChecked -> tasks[position].done = isChecked
+            _, isChecked ->
+            tasks[position].done = isChecked
+            onTaskUpdate(tasks[position])
         }
     }
 
