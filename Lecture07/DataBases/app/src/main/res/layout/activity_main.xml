@@ -13,11 +13,17 @@
         <EditText
             android:id="@+id/etNewTask"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnAddTask"
             android:text="ADD"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnClearTask"
+            android:text="CLEAR"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />

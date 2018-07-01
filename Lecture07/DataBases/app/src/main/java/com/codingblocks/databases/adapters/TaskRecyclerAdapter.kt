@@ -1,6 +1,7 @@
 package com.codingblocks.databases.adapters
 
 import android.content.Context
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +17,8 @@ import kotlinx.android.synthetic.main.list_item_task.view.*
 
 class TaskRecyclerAdapter (
         val tasks: ArrayList<Task>,
-        val onTaskUpdate: (task: Task) -> Unit
+        val onTaskUpdate: (task: Task) -> Unit,
+        val onTaskDelete: (task: Task) -> Unit
 ): RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
 
 
@@ -38,6 +40,18 @@ class TaskRecyclerAdapter (
             _, isChecked ->
             tasks[position].done = isChecked
             onTaskUpdate(tasks[position])
+        }
+        holder.itemView.setOnLongClickListener {
+            AlertDialog.Builder(holder.itemView.context)
+                    .setTitle("Delete Task")
+                    .setMessage("Do you really want to delete this task ? ")
+                    .setPositiveButton(
+                            "YES",
+                            { _, _ -> onTaskDelete(tasks[position]) }
+                    )
+                    .setNegativeButton("NO", {_, _ -> Unit})
+                    .show()
+            true
         }
     }
 

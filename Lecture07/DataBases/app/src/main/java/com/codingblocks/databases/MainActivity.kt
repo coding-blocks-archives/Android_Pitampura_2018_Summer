@@ -32,8 +32,13 @@ class MainActivity : AppCompatActivity() {
             TaskTable.updateTask(db, task)
             refreshTodos()
         }
+        val onTaskDelete = {
+            task: Task ->
+            TaskTable.deleteTask(db, task)
+            refreshTodos()
+        }
 
-        taskAdapter = TaskRecyclerAdapter(tasks, onTaskUpdate)
+        taskAdapter = TaskRecyclerAdapter(tasks, onTaskUpdate, onTaskDelete)
         rvTasks.adapter = taskAdapter
 
         refreshTodos()
@@ -49,6 +54,11 @@ class MainActivity : AppCompatActivity() {
             refreshTodos()
             Log.d("TASK", "INSERTED AT ${id}")
             taskAdapter.notifyDataSetChanged()
+        }
+
+        btnClearTask.setOnClickListener {
+            TaskTable.deleteTask(db, true)
+            refreshTodos()
         }
 
     }

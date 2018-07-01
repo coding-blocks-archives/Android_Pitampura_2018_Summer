@@ -23,6 +23,23 @@ class TaskTable {
             row.put(Columns.DONE, task.done)
             return db.insert(TABLE_NAME, null, row)
         }
+        fun deleteTask(db: SQLiteDatabase, task: Task): Int {
+            return db.delete(
+                    TABLE_NAME,
+                    "${Columns.ID} = ?",
+                    arrayOf(task.id.toString())
+            )
+        }
+        fun deleteTask(db: SQLiteDatabase, doneStatus: Boolean): Int {
+            var doneVal = 0
+            if (doneStatus) doneVal = 1
+            return db.delete(
+                    TABLE_NAME,
+                    "${Columns.DONE} = ?",
+                    arrayOf(doneVal.toString())
+
+            )
+        }
         fun updateTask(db: SQLiteDatabase, task: Task) {
             if (task.id == null) {
                 Log.e("TASK", "No ID found to update")
