@@ -3,6 +3,7 @@ package com.codingblocks.asynctasks
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnStart.setOnClickListener {
-            WaitTask().execute()
+            Handler().postDelayed({
+                textView.text = "DONE"
+            }, 5000)
         }
 
         btnCount.setOnClickListener {
