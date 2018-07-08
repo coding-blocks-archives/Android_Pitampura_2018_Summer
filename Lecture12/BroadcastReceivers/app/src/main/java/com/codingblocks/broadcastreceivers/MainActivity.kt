@@ -1,10 +1,11 @@
 package com.codingblocks.broadcastreceivers
 
+import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import java.util.jar.Manifest
+import android.support.v4.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,12 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(
                 receiver,
                 intentFilter
+        )
+
+        ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.PROCESS_OUTGOING_CALLS),
+                111
         )
 
     }
