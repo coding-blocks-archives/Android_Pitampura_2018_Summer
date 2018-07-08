@@ -11,13 +11,27 @@ class CourseAdapter (
         val courses: ArrayList<Course>
 ): RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> 0
+            else -> 1
+        }
+    }
+
     override fun getItemCount(): Int = courses.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+
             CourseViewHolder(
                     (parent.context.getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-                            .inflate(R.layout.list_item_course, parent, false)
+                            .inflate(
+                                    when (viewType) {
+                                        0 -> R.layout.list_item_course
+                                        else -> R.layout.list_item_course2
+                                    },
+                                    parent, false
+                            )
             )
 
 
