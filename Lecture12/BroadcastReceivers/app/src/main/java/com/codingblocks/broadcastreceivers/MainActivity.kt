@@ -25,7 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.PROCESS_OUTGOING_CALLS),
+                arrayOf(
+                        Manifest.permission.PROCESS_OUTGOING_CALLS,
+                        Manifest.permission.CALL_PHONE
+                ),
                 111
         )
 
