@@ -1,6 +1,7 @@
 package com.codingblocks.hardwaresensors
 
 import android.content.Context
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -8,6 +9,7 @@ import android.hardware.SensorManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,20 @@ class MainActivity : AppCompatActivity() {
                         ay = ${values[1]}
                         az = ${values[2]}
                     """.trimIndent())
+
+                    val (r,g,b) = values.map { (255 * ((it + 12) / 24)).toInt() }
+
+                    val rms = Math.pow(
+
+                            (values
+                            .map { (it*it) / values.size }
+                            .reduce { acc, fl -> acc + fl }).toDouble(),
+
+                            0.5
+                    )
+                    tvRmsAccel.text = rms.toString()
+
+                    flBackground.setBackgroundColor(Color.rgb(r,g,b))
                 }
             }
 
