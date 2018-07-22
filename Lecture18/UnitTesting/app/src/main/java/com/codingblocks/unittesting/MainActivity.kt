@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
             val fare = calcFare(km, min)
             tvResult.text = fare.toString()
         }
+        if (intent.getStringExtra("RESULT") != null) {
+            tvResult.text = intent.getStringExtra("RESULT")
+        }
     }
 
     companion object {
