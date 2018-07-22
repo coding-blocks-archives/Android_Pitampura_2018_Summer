@@ -1,6 +1,7 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Main {
 
@@ -12,6 +13,9 @@ public class Main {
     static class Vehicle {
         public String color;
         public Integer wheels;
+        public Integer getAxles () {
+            return wheels / 2;
+        }
     }
 
     static void takesClass (Class someClass) {
@@ -20,6 +24,13 @@ public class Main {
         for (Field f : someClass.getFields()) {
             System.out.println(f.getName() + ": " + f.getType().getName());
         }
+        for (Method m: someClass.getMethods()) {
+            System.out.println(m.getName() + ": " + m.getReturnType().getName());
+
+            // car.getAxles(1)
+            // Vehicle.getMethod("getAxles").invoke(car, 1)
+        }
+
     }
     static void takesObj (Object someObj) {
         System.out.println("============== takesObj ============");
