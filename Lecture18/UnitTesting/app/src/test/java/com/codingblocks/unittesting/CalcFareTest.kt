@@ -14,7 +14,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_0km_0min() {
         assertEquals(
                 60f,
-                FareUtils.calcFare(0f, 0),
+                calcFare(0f, 0),
                 0.005f
         )
     }
@@ -22,7 +22,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_6km_0min() {
         assertEquals(
                 70f,
-                FareUtils.calcFare(6f, 0),
+                calcFare(6f, 0),
                 0.005f
         )
     }
@@ -30,7 +30,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_0km_40min() {
         assertEquals(
                 80f,
-                FareUtils.calcFare(0f, 40),
+                calcFare(0f, 40),
                 0.005f
         )
     }
@@ -38,7 +38,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_6km_40min() {
         assertEquals(
                 90f,
-                FareUtils.calcFare(6f, 40),
+                calcFare(6f, 40),
                 0.005f
         )
     }
@@ -46,7 +46,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_minus10km_0min() {
         assertEquals(
                 60f,
-                FareUtils.calcFare(-10f, 0),
+                calcFare(-10f, 0),
                 0.005f
         )
     }
@@ -54,7 +54,7 @@ class CalcFareTest {
     fun calcFare_isCorrect_for_0km_minus10min() {
         assertEquals(
                 60f,
-                FareUtils.calcFare(0f, -10),
+                calcFare(0f, -10),
                 0.005f
         )
     }
