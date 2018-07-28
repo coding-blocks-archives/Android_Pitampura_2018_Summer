@@ -7,8 +7,21 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.util.Log
+import android.view.SurfaceHolder
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
+    lateinit var cam: Camera
+    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder?) {
+    }
+
+    override fun surfaceCreated(holder: SurfaceHolder?) {
+        cam.setPreviewDisplay(svCameraPreview.holder)
+        cam.startPreview()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +39,26 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 123) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                val cam = Camera.open()
+                cam = Camera.open()
                 Log.d("CAM", """
-                    Picture Size = ${cam.parameters.pictureSize}
-                    Preview Size = ${cam.parameters.previewSize}
+
+                    Picture Size =
+                    ${cam.parameters.pictureSize.height} x ${cam.parameters.pictureSize.width}
+
+                    Preview Size =
+                    ${cam.parameters.previewSize.height} x ${cam.parameters.previewSize.width}
                 """.trimIndent())
+
+                cam.parameters.supportedPictureSizes.forEach {
+                    Log.d("CAM", "SIZE : ${it.height} x ${it.width}")
+                }
+                cam.parameters.supportedPreviewSizes.forEach {
+                    Log.d("CAM", "PREVIEW : ${it.height} x ${it.width}")
+                }
+
+                svCameraPreview.holder.addCallback(this)
+
+
             }
         }
 
