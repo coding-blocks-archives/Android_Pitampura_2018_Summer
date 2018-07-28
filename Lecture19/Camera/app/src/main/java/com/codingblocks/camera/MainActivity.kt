@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.util.Log
+import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.Window
 import android.view.WindowManager
@@ -23,9 +24,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
             } catch (e: Exception) {}
 
             try {
-                cam.setDisplayOrientation(90)
-                cam.setPreviewDisplay(holder)
-                cam.startPreview()
+                startPreview(cam, holder)
             } catch (e: Exception) {}
         }
 
@@ -36,8 +35,20 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
     }
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
-        cam.setDisplayOrientation(90)
-        cam.setPreviewDisplay(svCameraPreview.holder)
+        startPreview(cam, svCameraPreview.holder)
+    }
+
+    fun startPreview(cam: Camera, holder: SurfaceHolder) {
+
+        when (windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_0 -> {cam.setDisplayOrientation(90)}
+            Surface.ROTATION_90 -> {cam.setDisplayOrientation(0)}
+            Surface.ROTATION_180 -> {cam.setDisplayOrientation(270)}
+            Surface.ROTATION_270 -> {cam.setDisplayOrientation(180)}
+        }
+
+
+        cam.setPreviewDisplay(holder)
         cam.startPreview()
     }
 
@@ -75,9 +86,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
                 }
 
                 svCameraPreview.holder.addCallback(this)
-                cam.setDisplayOrientation(90)
-                cam.setPreviewDisplay(svCameraPreview.holder)
-                cam.startPreview()
+                startPreview(cam, svCameraPreview.holder)
 
             }
         }
